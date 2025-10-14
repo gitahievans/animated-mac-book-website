@@ -9,7 +9,7 @@ const Navbar = () => {
         <img className="w-8 h-8" src={AppleLogo} alt="Apple Logo" />
       </div>
 
-      <ul className="flex flex-row items-center justify-between gap-4">
+      <ul className="hidden md:flex flex-row items-center justify-between gap-4">
         {links.map(({ label }) => (
           <li key={label} className="text-sm">
             <a href="label">{label}</a>
