@@ -1,21 +1,107 @@
-import React from "react";
+import React, { useMemo, useState, useCallback, useEffect } from "react";
 import useMacBookStore from "../store";
 import clsx from "clsx";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useThree } from "@react-three/fiber";
 import { Box, PerspectiveCamera } from "@react-three/drei";
 import StudioLights from "./three/StudioLights";
 import ModelsSwitcher from "./three/ModelsSwitcher";
 import { useMediaQuery } from "react-responsive";
+import gsap from "gsap";
+
+type LookAtTarget = {
+  cameraPosition: [number, number, number];
+  target: [number, number, number];
+  fov?: number;
+};
+
+const CameraRig: React.FC<{ lookAt?: LookAtTarget | null }> = ({ lookAt }) => {
+  const { camera } = useThree();
+
+  useEffect(() => {
+    if (!lookAt) return;
+    const { cameraPosition, target, fov } = lookAt;
+
+    const tl = gsap.timeline({ defaults: { ease: "power3.inOut", duration: 1.2 } });
+
+    tl.to(camera.position, {
+      x: cameraPosition[0],
+      y: cameraPosition[1],
+      z: cameraPosition[2],
+      onUpdate: () => {
+        camera.lookAt(target[0], target[1], target[2]);
+        camera.updateProjectionMatrix();
+      },
+    });
+
+    if (typeof fov === "number") {
+      tl.to(
+        camera,
+        {
+          fov,
+          onUpdate: () => camera.updateProjectionMatrix(),
+        },
+        "<"
+      );
+    }
+
+    return () => {
+      tl.kill();
+    };
+  }, [lookAt, camera]);
+
+  return null;
+};
 const ProductViewer = () => {
   const { color, setColor, scale, setScale } = useMacBookStore();
   const isMobile = useMediaQuery({ query: "(max-width: 1024px)" });
+  const [lookAt, setLookAt] = useState<LookAtTarget | null>(null);
+
+  const initial = useMemo<LookAtTarget>(
+    () => ({ cameraPosition: [0, 2, 5], target: [0, 0, 0], fov: 50 }),
+    []
+  );
+
+  const presets = useMemo(() => {
+    return {
+      screen: {
+        cameraPosition: [0, 1.3, 2.2],
+        target: [0, 1.2, 0],
+        fov: 45
+      } as LookAtTarget,
+      trackpad: {
+        cameraPosition: [0, 1.2, 1.2],
+        target: [0, 0.9, 1],
+        fov: 60
+      } as LookAtTarget,
+      webcam: {
+        cameraPosition: [0, 1.5, 1.5],
+        target: [0, 1.45, 0],
+        fov: 25
+      } as LookAtTarget,
+      keyboard: {
+        cameraPosition: [0, 2, 2],
+        target: [0, 1.6, 1.5],
+        fov: 30
+      } as LookAtTarget,
+      logo: {
+        cameraPosition: [0, 1.3, -6.8],
+        target: [0, 0, 0],
+        fov: 30
+      } as LookAtTarget,
+      reset: initial,
+    };
+  }, [initial]);
+
+  const handleLook = useCallback((key: keyof typeof presets) => {
+    setLookAt(presets[key]);
+  }, [presets]);
 
   return (
     <section id="product-viewer">
-      <h1>Take a closer look</h1>
+      <h1 className="text-4xl font-bold">Take a closer look</h1>
 
       <div className="controls">
-        <p className="info">
+        <p className="info text-lg">
           {" "}
           MacBook Pro 16" in{" "}
           {color === "#adb5bd" ? "Space Gray" : "Space Black"}
@@ -63,6 +149,52 @@ const ProductViewer = () => {
         </div>
       </div>
 
+      <div className="absolute z-50 bottom-1/2 left-[80%]">
+        <div className="backdrop-blur-md bg-white/5 border border-white/20 rounded-xl p-4 shadow-2xl">
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="text-base font-semibold tracking-wide uppercase text-neutral-200">Look At</h2>
+            <button
+              onClick={() => handleLook("reset")}
+              className="text-xs px-2 py-1 rounded-md border border-white/20 hover:bg-white/10 transition"
+            >
+              Reset
+            </button>
+          </div>
+          <div className="grid grid-cols-2 gap-2 w-64">
+            <button
+              onClick={() => handleLook("screen")}
+              className="px-3 py-2 rounded-lg border border-white/20 hover:bg-white/10 transition text-left"
+            >
+              Screen
+            </button>
+            <button
+              onClick={() => handleLook("trackpad")}
+              className="px-3 py-2 rounded-lg border border-white/20 hover:bg-white/10 transition text-left"
+            >
+              Trackpad
+            </button>
+            <button
+              onClick={() => handleLook("keyboard")}
+              className="px-3 py-2 rounded-lg border border-white/20 hover:bg-white/10 transition text-left"
+            >
+              Keyboard
+            </button>
+            <button
+              onClick={() => handleLook("webcam")}
+              className="px-3 py-2 rounded-lg border border-white/20 hover:bg-white/10 transition text-left"
+            >
+              Webcam
+            </button>
+            <button
+              onClick={() => handleLook("logo")}
+              className="px-3 py-2 rounded-lg border border-white/20 hover:bg-white/10 transition text-left"
+            >
+              Logo
+            </button>
+          </div>
+        </div>
+      </div>
+
       <Canvas
         id="canvas"
         camera={{ position: [0, 2, 5], fov: 50, near: 0.1, far: 100 }}
@@ -73,6 +205,7 @@ const ProductViewer = () => {
           scale={isMobile ? scale - 0.03 : scale}
           isMobile={isMobile}
         />
+        <CameraRig lookAt={lookAt} />
       </Canvas>
     </section>
   );

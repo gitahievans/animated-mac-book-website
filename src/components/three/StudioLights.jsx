@@ -8,15 +8,15 @@ const StudioLights = () => {
         <group>
           <Lightformer
             form="rect"
-            intensity={10}
-            position={[-10, 5, -5]}
+            intensity={0.45}
+            position={[0, 5, -5]}
             scale={10}
             rotation-y={Math.PI / 2}
           />
           <Lightformer
             form="rect"
             intensity={10}
-            position={[10, 0, 1]}
+            position={[5, 0, 1]}
             scale={10}
             rotation-y={Math.PI / 2}
           />
@@ -35,10 +35,16 @@ const StudioLights = () => {
         intensity={Math.PI * 0.2}
       />
       <spotLight
-        position={[0, 15, 10]}
+        position={[0, 55, 10]}
         angle={0.15}
         decay={0}
         intensity={Math.PI}
+      />
+      <spotLight
+        position={[0, -10, -25]}
+        angle={0.15}
+        decay={0}
+        intensity={Math.PI * 4}
       />
     </group>
   );
