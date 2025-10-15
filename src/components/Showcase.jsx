@@ -1,14 +1,37 @@
-import React from "react";
-import MaskImage from "../assets/apple/mask-logo.svg";
+import { useMediaQuery } from "react-responsive";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 import Video from "../assets/apple/videos/game.mp4";
+import Mask from "../assets/apple/mask-logo.svg";
 
 const Showcase = () => {
+  const isTablet = useMediaQuery({ query: "(max-width: 1024px)" });
+
+  useGSAP(() => {
+    if (!isTablet) {
+      const timeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: "#showcase",
+          start: "top top",
+          end: "center top",
+          scrub: true,
+          pin: true,
+          markers: true,
+        },
+      });
+
+      timeline
+        .to(".mask img", { transform: "scale(1.1)" })
+        .to(".content", { opacity: 1, y: 0, ease: "power1.in" });
+    }
+  }, [isTablet]);
+
   return (
-    <div id="section">
+    <section id="showcase">
       <div className="media">
         <video src={Video} loop muted autoPlay playsInline />
         <div className="mask">
-          <img src={MaskImage} alt="Mask" />
+          <img src={Mask} />
         </div>
       </div>
 
@@ -41,10 +64,22 @@ const Showcase = () => {
               </p>
             </div>
           </div>
+
+          <div className="max-w-3xs space-y-14">
+            <div className="space-y-2">
+              <p>Up to</p>
+              <h3>4x faster</h3>
+              <p>pro rendering performance than M2</p>
+            </div>
+            <div className="space-y-2">
+              <p>Up to</p>
+              <h3>1.5x faster</h3>
+              <p>CPU performance than M2</p>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
-
 export default Showcase;
