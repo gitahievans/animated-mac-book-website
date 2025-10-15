@@ -32,8 +32,7 @@ const ModelsSwitcher = ({ scale, isMobile }) => {
   const SCALE_LARGE_DESKTOP = 0.08;
   const SCALE_LARGE_MOBILE = 0.05;
 
-  const showLargeMacBook =
-    scale === SCALE_LARGE_DESKTOP || scale === SCALE_LARGE_MOBILE;
+  const showLargeMacBook = scale === SCALE_LARGE_DESKTOP || scale === SCALE_LARGE_MOBILE;
 
   useGSAP(() => {
     if (showLargeMacBook) {

@@ -1,5 +1,4 @@
 import { Environment, Lightformer, SpotLight } from "@react-three/drei";
-import { Spotlight } from "lucide-react";
 import React from "react";
 
 const StudioLights = () => {
