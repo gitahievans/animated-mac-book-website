@@ -1,7 +1,28 @@
-import React from "react";
+import { footerLinks } from "../Constants"
+import AppleLogo from "../assets/apple/logo.svg"
 
 const Footer = () => {
-  return <div>Footer</div>;
-};
+  return (
+    <footer>
+      <div className="info">
+        <p>More ways to shop: Find an Apple Store or other retailer near you. Or call 000800 040 1966.</p>
+        <img src={AppleLogo} alt="Apple logo" />
+      </div>
 
-export default Footer;
+      <hr />
+
+      <div className="links">
+        <p>Copyright © 2024 Apple Inc. All rights reserved.</p>
+
+        <ul>
+          {footerLinks.map(({ label, link }) => (
+            <li key={label}>
+              <a href={link}>{label}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </footer>
+  )
+}
+export default Footer

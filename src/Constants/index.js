@@ -5,6 +5,16 @@ import performance4 from "../assets/apple/performance4.png";
 import performance5 from "../assets/apple/performance5.jpg";
 import performance6 from "../assets/apple/performance6.png";
 import performance7 from "../assets/apple/performance7.png";
+import videoPath1 from "../assets/apple/videos/feature-1.mp4";
+import videoPath2 from "../assets/apple/videos/feature-2.mp4";
+import videoPath3 from "../assets/apple/videos/feature-3.mp4";
+import videoPath4 from "../assets/apple/videos/feature-4.mp4";
+import videoPath5 from "../assets/apple/videos/feature-5.mp4";
+import featureIcon1 from "../assets/apple/feature-icon1.svg";
+import featureIcon2 from "../assets/apple/feature-icon2.svg";
+import featureIcon3 from "../assets/apple/feature-icon3.svg";
+import featureIcon4 from "../assets/apple/feature-icon4.svg";
+import featureIcon5 from "../assets/apple/feature-icon5.svg";
 
 const links = [
   { label: "Store" },
@@ -85,35 +95,35 @@ const performanceImgPositions = [
 const features = [
   {
     id: 1,
-    icon: "/feature-icon1.svg",
+    icon: featureIcon1,
     highlight: "Email AI.",
     text: "Summarize and draft replies to emails instantly, so you stay on top of your inbox.",
     styles: "left-5 md:left-20 top-[20%] opacity-0 translate-y-5",
   },
   {
     id: 2,
-    icon: "/feature-icon2.svg",
+    icon: featureIcon2,
     highlight: "Image AI.",
     text: "Generate or edit images with ease. Just type what you imagine, and let AI bring it to life.",
     styles: "right-5 md:right-20 top-[30%] opacity-0 translate-y-5",
   },
   {
     id: 3,
-    icon: "/feature-icon3.svg",
+    icon: featureIcon3,
     highlight: "Summarize AI.",
     text: "Turn long articles, reports, or notes into clear, bite-sized summaries in seconds.",
     styles: "left-5 md:left-20 top-[50%] opacity-0 translate-y-5",
   },
   {
     id: 4,
-    icon: "/feature-icon4.svg",
+    icon: featureIcon4,
     highlight: "AirDrop.",
     text: "Wirelessly share photos, large files, and more between your iPhone, your Mac, & other devices.",
     styles: "right-5 md:right-20 top-[70%] opacity-0 translate-y-5",
   },
   {
     id: 5,
-    icon: "/feature-icon5.svg",
+    icon: featureIcon5,
     highlight: "Writing Tool.",
     text: "Write smarter and faster, whether it’s blogs, essays, or captions, AI helps polish your words.",
     styles: "left-5 md:left-20 top-[90%] opacity-0 translate-y-5",
@@ -121,11 +131,11 @@ const features = [
 ];
 
 const featureSequence = [
-  { videoPath: "/videos/feature-1.mp4", boxClass: ".box1", delay: 1 },
-  { videoPath: "/videos/feature-2.mp4", boxClass: ".box2", delay: 0 },
-  { videoPath: "/videos/feature-3.mp4", boxClass: ".box3", delay: 0 },
-  { videoPath: "/videos/feature-4.mp4", boxClass: ".box4", delay: 0 },
-  { videoPath: "/videos/feature-5.mp4", boxClass: ".box5", delay: 0 },
+  { videoPath: { videoPath1 }, boxClass: ".box1", delay: 1 },
+  { videoPath: { videoPath2 }, boxClass: ".box2", delay: 0 },
+  { videoPath: { videoPath3 }, boxClass: ".box3", delay: 0 },
+  { videoPath: { videoPath4 }, boxClass: ".box4", delay: 0 },
+  { videoPath: { videoPath5 }, boxClass: ".box5", delay: 0 },
 ];
 
 const footerLinks = [

@@ -21,7 +21,7 @@ const CameraRig: React.FC<{ lookAt?: LookAtTarget | null }> = ({ lookAt }) => {
     if (!lookAt) return;
     const { cameraPosition, target, fov } = lookAt;
 
-    const tl = gsap.timeline({ defaults: { ease: "power3.inOut", duration: 1.2 } });
+    const tl = gsap.timeline({ defaults: { ease: "power3.inOut", duration: 1.5 } });
 
     tl.to(camera.position, {
       x: cameraPosition[0],
@@ -51,6 +51,8 @@ const CameraRig: React.FC<{ lookAt?: LookAtTarget | null }> = ({ lookAt }) => {
 
   return null;
 };
+
+
 const ProductViewer = () => {
   const { color, setColor, scale, setScale } = useMacBookStore();
   const isMobile = useMediaQuery({ query: "(max-width: 1024px)" });
@@ -86,7 +88,7 @@ const ProductViewer = () => {
       logo: {
         cameraPosition: [0, 1.3, -6.8],
         target: [0, 0, 0],
-        fov: 30
+        fov: 40
       } as LookAtTarget,
       reset: initial,
     };
