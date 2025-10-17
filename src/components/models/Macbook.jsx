@@ -13,12 +13,13 @@ import { useGLTF, useVideoTexture } from "@react-three/drei";
 import useMacBookStore from "../../store";
 import { noChangeParts } from "../../Constants";
 import { Color } from "three";
+import gltf from "../../assets/apple/models/macbook-transformed.glb";
 
 export function MacbookModel(props) {
-  const { nodes, materials, scene } = useGLTF("src/assets/apple//models/macbook-transformed.glb");
+  const { nodes, materials, scene } = useGLTF(gltf);
   const { color, texture } = useMacBookStore();
 
-  const screenTexture = useVideoTexture(texture)
+  const screenTexture = useVideoTexture(texture);
 
   useEffect(() => {
     scene.traverse((child) => {
@@ -117,10 +118,7 @@ export function MacbookModel(props) {
         material={materials.JvMFZolVCdpPqjj}
         rotation={[Math.PI / 2, 0, 0]}
       />
-      <mesh
-        geometry={nodes.Object_123.geometry}
-        rotation={[Math.PI / 2, 0, 0]}
-      >
+      <mesh geometry={nodes.Object_123.geometry} rotation={[Math.PI / 2, 0, 0]}>
         <meshBasicMaterial map={screenTexture} />
       </mesh>
       <mesh
@@ -132,4 +130,4 @@ export function MacbookModel(props) {
   );
 }
 
-useGLTF.preload("src/assets/apple/models/macbook-transformed.glb");
+useGLTF.preload(gltf);

@@ -13,11 +13,11 @@ import { useGLTF, useTexture } from "@react-three/drei";
 import useMacBookStore from "../../store";
 import { noChangeParts } from "../../Constants";
 import { Color } from "three";
+import gltf from "../../assets/apple/models/macbook-14-transformed.glb";
+import modelTexture from "../../assets/apple/screen.png";
 
 export default function MacBookPro14(props) {
-  const { nodes, materials, scene } = useGLTF(
-    "src/assets/apple/models/macbook-14-transformed.glb"
-  );
+  const { nodes, materials, scene } = useGLTF(gltf);
   const { color } = useMacBookStore();
 
   useEffect(() => {
@@ -30,7 +30,7 @@ export default function MacBookPro14(props) {
     });
   }, [color, scene]);
 
-  const texture = useTexture("src/assets/apple/screen.png");
+  const texture = useTexture(modelTexture);
 
   return (
     <group {...props} dispose={null}>
@@ -119,10 +119,7 @@ export default function MacBookPro14(props) {
         material={materials.JvMFZolVCdpPqjj}
         rotation={[Math.PI / 2, 0, 0]}
       />
-      <mesh
-        geometry={nodes.Object_123.geometry}
-        rotation={[Math.PI / 2, 0, 0]}
-      >
+      <mesh geometry={nodes.Object_123.geometry} rotation={[Math.PI / 2, 0, 0]}>
         <meshBasicMaterial map={texture} />
       </mesh>
       <mesh
@@ -134,4 +131,4 @@ export default function MacBookPro14(props) {
   );
 }
 
-useGLTF.preload("src/assets/apple/models/macbook-14-transformed.glb");
+useGLTF.preload(gltf);
