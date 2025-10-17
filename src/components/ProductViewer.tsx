@@ -21,7 +21,9 @@ const CameraRig: React.FC<{ lookAt?: LookAtTarget | null }> = ({ lookAt }) => {
     if (!lookAt) return;
     const { cameraPosition, target, fov } = lookAt;
 
-    const tl = gsap.timeline({ defaults: { ease: "power3.inOut", duration: 1.5 } });
+    const tl = gsap.timeline({
+      defaults: { ease: "power3.inOut", duration: 1.5 },
+    });
 
     tl.to(camera.position, {
       x: cameraPosition[0],
@@ -52,7 +54,6 @@ const CameraRig: React.FC<{ lookAt?: LookAtTarget | null }> = ({ lookAt }) => {
   return null;
 };
 
-
 const ProductViewer = () => {
   const { color, setColor, scale, setScale } = useMacBookStore();
   const isMobile = useMediaQuery({ query: "(max-width: 1024px)" });
@@ -68,44 +69,47 @@ const ProductViewer = () => {
       screen: {
         cameraPosition: [0, 1.3, 2.2],
         target: [0, 1.2, 0],
-        fov: 45
+        fov: 45,
       } as LookAtTarget,
       trackpad: {
         cameraPosition: [0, 1.2, 1.2],
         target: [0, 0.9, 1],
-        fov: 60
+        fov: 60,
       } as LookAtTarget,
       webcam: {
         cameraPosition: [0, 1.5, 1.5],
         target: [0, 1.45, 0],
-        fov: 25
+        fov: 25,
       } as LookAtTarget,
       keyboard: {
         cameraPosition: [0, 2, 2],
         target: [0, 1.6, 1.5],
-        fov: 30
+        fov: 30,
       } as LookAtTarget,
       logo: {
         cameraPosition: [0, 1.3, -6.8],
         target: [0, 0, 0],
-        fov: 40
+        fov: 40,
       } as LookAtTarget,
       reset: initial,
     };
   }, [initial]);
 
-  const handleLook = useCallback((key: keyof typeof presets) => {
-    setLookAt(presets[key]);
-  }, [presets]);
+  const handleLook = useCallback(
+    (key: keyof typeof presets) => {
+      setLookAt(presets[key]);
+    },
+    [presets]
+  );
 
   return (
     <section id="product-viewer">
-      <h1 className="text-4xl font-bold">Take a closer look</h1>
+      <h2 className="text-center">See it all in a new light.</h2>
 
       <div className="controls">
         <p className="info text-lg">
           {" "}
-          MacBook Pro 16" in{" "}
+          MacBook Pro {scale === 0.06 ? '14"' : '16"'} in{" "}
           {color === "#adb5bd" ? "Space Gray" : "Space Black"}
         </p>
         <div className="flex-center gap-5 mt-5">
@@ -153,8 +157,10 @@ const ProductViewer = () => {
 
       <div className="absolute z-50 bottom-1/2 left-[80%]">
         <div className="backdrop-blur-md bg-white/5 border border-white/20 rounded-xl p-4 shadow-2xl">
-          <div className="flex items-center justify-between mb-3">
-            <h2 className="text-base font-semibold tracking-wide uppercase text-neutral-200">Look At</h2>
+          <div className="flex flex-col md:flex-row gap-2 md:items-center justify-between mb-3">
+            <h2 className="text-sm md:text-base font-semibold tracking-wide uppercase text-neutral-200">
+              Look At
+            </h2>
             <button
               onClick={() => handleLook("reset")}
               className="text-xs px-2 py-1 rounded-md border border-white/20 hover:bg-white/10 transition"
@@ -162,34 +168,34 @@ const ProductViewer = () => {
               Reset
             </button>
           </div>
-          <div className="grid grid-cols-2 gap-2 w-64">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 max-w-xs">
             <button
               onClick={() => handleLook("screen")}
-              className="px-3 py-2 rounded-lg border border-white/20 hover:bg-white/10 transition text-left"
+              className="px-3 py-1 rounded-full border border-white/20 hover:bg-white/10 transition text-sm flex items-center justify-center"
             >
               Screen
             </button>
             <button
               onClick={() => handleLook("trackpad")}
-              className="px-3 py-2 rounded-lg border border-white/20 hover:bg-white/10 transition text-left"
+              className="px-3 py-1 rounded-full border border-white/20 hover:bg-white/10 transition text-sm flex items-center justify-center"
             >
               Trackpad
             </button>
             <button
               onClick={() => handleLook("keyboard")}
-              className="px-3 py-2 rounded-lg border border-white/20 hover:bg-white/10 transition text-left"
+              className="px-3 py-1 rounded-full border border-white/20 hover:bg-white/10 transition text-sm flex items-center justify-center"
             >
               Keyboard
             </button>
             <button
               onClick={() => handleLook("webcam")}
-              className="px-3 py-2 rounded-lg border border-white/20 hover:bg-white/10 transition text-left"
+              className="px-3 py-1 rounded-full border border-white/20 hover:bg-white/10 transition text-sm flex items-center justify-center"
             >
               Webcam
             </button>
             <button
               onClick={() => handleLook("logo")}
-              className="px-3 py-2 rounded-lg border border-white/20 hover:bg-white/10 transition text-left"
+              className="px-3 py-1 rounded-full border border-white/20 hover:bg-white/10 transition text-sm flex items-center justify-center"
             >
               Logo
             </button>

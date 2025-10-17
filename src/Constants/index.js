@@ -105,7 +105,7 @@ const features = [
     icon: featureIcon2,
     highlight: "Image AI.",
     text: "Generate or edit images with ease. Just type what you imagine, and let AI bring it to life.",
-    styles: "right-5 md:right-20 top-[30%] opacity-0 translate-y-5",
+    styles: "right-5 md:right-20 top-[35%] opacity-0 translate-y-5",
   },
   {
     id: 3,
@@ -119,7 +119,7 @@ const features = [
     icon: featureIcon4,
     highlight: "AirDrop.",
     text: "Wirelessly share photos, large files, and more between your iPhone, your Mac, & other devices.",
-    styles: "right-5 md:right-20 top-[70%] opacity-0 translate-y-5",
+    styles: "right-5 md:right-20 top-[60%] opacity-0 translate-y-5",
   },
   {
     id: 5,
