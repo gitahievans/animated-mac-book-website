@@ -9,11 +9,14 @@ import Performance from "./components/Performance";
 import Highlights from "./components/Highlights";
 import Footer from "./components/Footer";
 import Features from "./components/Features";
+import { useTheme } from "./store/ThemeContext";
 gsap.registerPlugin(ScrollTrigger);
 
 function App() {
+  const { theme } = useTheme();
+
   return (
-    <main className="bg-black text-white ">
+    <main data-theme={theme} className="bg-black text-white ">
       <Navbar />
       <Hero />
       <ProductViewer />

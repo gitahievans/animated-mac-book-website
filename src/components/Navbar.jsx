@@ -1,8 +1,12 @@
 import React from "react";
 import AppleLogo from "../assets/icons8-apple-100.png";
-import { Search, ShoppingBag } from "lucide-react";
+import { Search, ShoppingBag, Sun, Moon } from "lucide-react";
 import { links } from "../Constants";
+import { useTheme } from "../store/ThemeContext";
+
 const Navbar = () => {
+  const { theme, toggleTheme } = useTheme();
+
   return (
     <header className="flex flex-row items-center justify-between p-3">
       <div className="flex items-center justify-center">
@@ -18,6 +22,13 @@ const Navbar = () => {
       </ul>
 
       <div className="flex flex-row p-2 gap-4">
+        <button onClick={toggleTheme}>
+          {theme === "dark" ? (
+            <Sun className="w-6 h-6" />
+          ) : (
+            <Moon className="w-6 h-6" />
+          )}
+        </button>
         <button>
           <Search className="w-6 h-6" />
         </button>
