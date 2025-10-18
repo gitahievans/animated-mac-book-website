@@ -16,7 +16,7 @@ const Showcase = () => {
           end: "center top",
           scrub: true,
           pin: true,
-          markers: true,
+          // markers: true,
         },
       });
 

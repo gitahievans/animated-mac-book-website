@@ -296,7 +296,7 @@ body {
   }
 
   #highlights {
-    @apply container mx-auto lg:py-40 max-lg:px-5;
+    @apply container mx-auto lg:py-40 px-5;
 
     h2 {
       @apply text-white font-semibold text-3xl lg:text-7xl text-center max-w-3xl mx-auto;
@@ -400,7 +400,7 @@ body {
   }
 
   footer {
-    @apply container mx-auto py-7 max-lg:px-5;
+    @apply container mx-auto py-7 px-5;
 
     .info {
       @apply flex-between;
